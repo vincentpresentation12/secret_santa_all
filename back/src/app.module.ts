@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import config from '../ormconfig';
 import { ConfigModule } from '@nestjs/config';
+import { SecretSantasModule } from './secret_santas/secret-santas.module';
 
 
 @Module({
@@ -14,6 +15,7 @@ import { ConfigModule } from '@nestjs/config';
     TypeOrmModule.forRoot(config),
     UsersModule,
     AuthModule,
+    SecretSantasModule
   ],
   controllers: [AppController],
   providers: [AppService],

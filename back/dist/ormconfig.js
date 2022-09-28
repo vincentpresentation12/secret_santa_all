@@ -7,7 +7,7 @@ const config = {
     username: 'root',
     password: 'root',
     database: 'secret_santa',
-    entities: ['dist/src/**/*.entity{.ts,.js}'],
+    entities: ['dist/src/*/.entity{.ts,.js}'],
     synchronize: true,
 };
 exports.default = config;
