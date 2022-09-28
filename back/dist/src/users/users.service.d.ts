@@ -8,8 +8,6 @@ export declare class UsersService {
     findAllUsers(currentUser: User): Promise<User[]>;
     findOne(username: string): Promise<User | null>;
     createUser(data: CreateUserInput): Promise<User>;
-    findUserWithRobots(uuid: string): Promise<User | null>;
-    findUserWithSac(uuid: string): Promise<User | null>;
     updateUser(uuid: string, data: UpdateUserDto): Promise<User | undefined>;
     deleteUser(uuid: string): Promise<User | undefined>;
     findUserByUuid(uuid: string): Promise<User | null>;

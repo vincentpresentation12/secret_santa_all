@@ -5,8 +5,8 @@ const config = {
     host: 'localhost',
     port: 3306,
     username: 'root',
-    password: '',
-    database: 'Secret_santa',
+    password: 'root',
+    database: 'secret_santa',
     entities: ['dist/src/**/*.entity{.ts,.js}'],
     synchronize: true,
 };
