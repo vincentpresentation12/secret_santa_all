@@ -6,20 +6,20 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(configService: ConfigService) {
-    super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: false,
-      secretOrKey: configService.get('JWT_SECRET'),
-    });
-  }
+    constructor(configService: ConfigService) {
+        super({
+            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            ignoreExpiration: false,
+            secretOrKey: configService.get('JWT_SECRET'),
+        });
+    }
 
-  async validate(payload: any) {
-    const user = await User.findOne({ where: { uuid: payload.sub } });
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    // @ts-ignore
-    const { password, ...result } = user;
+    async validate(payload: any) {
+        const user = await User.findOne({ where: { uuid: payload.sub } });
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // @ts-ignore
+        const { password, ...result } = user;
 
-    return result;
-  }
+        return result;
+    }
 }

@@ -10,10 +10,10 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
-import { CurrentUser } from '../common/decorator/current-user.decorator';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CreateUserInput } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import {CurrentUser} from "../common/decorator/current-user.decorator";
+import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
 
 @Controller('users')
 export class UsersController {
