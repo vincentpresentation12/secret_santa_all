@@ -56,6 +56,13 @@ const logout = async () => {
             ) : (
                 "")
             }
+          {user && user["username"] ? (
+                  <MenuItem>
+                    <Link href="/tirage">Tirage</Link>
+                  </MenuItem>
+                ) : (
+                    "")
+                }
           <MenuItem>
             <Link href={"/"}>Home</Link>
           </MenuItem>

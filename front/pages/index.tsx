@@ -11,7 +11,6 @@ import {
 import { useState } from "react"
 import Layout from "../layouts/layout"
 import { useRouter } from "next/router"
-// import nookies from "nookies"
 import { AcsInputPassword, AcsInputText } from "@akkurateio/forms"
 import {getCookie, setCookies} from "cookies-next";
 
@@ -38,7 +37,7 @@ const Home = () => {
             if (result && result["username"]) {
                  setCookies('token',result['access_token'] )
                 setCookies('user',JSON.stringify(result))
-                // await router.push("/profile")
+                await router.push("/tirage")
             } else {
                 alert("Error")
             }
