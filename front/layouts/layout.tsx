@@ -11,50 +11,31 @@ import {
   Text,
 } from "@chakra-ui/react"
 import Link from "next/link"
-
 import { useRouter } from "next/router"
-// import BurgerIcon from "../image/burger"
-import {deleteCookie, getCookie} from "cookies-next";
+import {deleteCookie} from "cookies-next";
+import BurgerIcon from "../images/burger";
 
-const Layout = () => {
+interface Iprops {
+  user: any[]
+}
+
+const Layout:React.FC<Iprops> = ({user}) => {
   const router = useRouter()
-  const [user, setUser] = useState<any>("")
 
-
-  // const cookie = parseCookies()["token"]
-
-  // useEffect(() => {
-  //   if (cookie) {
-  //     parseCookies()["token"]
-  //     const cookies = JSON.parse(cookie)
-  //     fetch(`http://localhost:3000/users/${cookies["uuid"]}`, {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${cookies["access_token"]}`,
-  //       },
-  //     })
-  //       .then((res) => res.json())
-  //       .then((res) => {
-  //         const user = res
-  //         setUser(user)
-  //       })
-  //   }
-  // }, [])
-
-function logout() {
-    deleteCookie("token")
-    router.push("/")
+const logout = async () => {
+    deleteCookie('token')
+    deleteCookie('user')
+    await router.push("/")
 }
 
   return (
     <Flex display={"flex"} width={"full"} backgroundColor={"blue.500"}>
-      <Text>Bonjour {user["username"]}</Text>
+      <Text  >Bonjour {user["firstname"]}</Text>
       <Menu>
         <MenuButton
           as={IconButton}
           aria-label="Options"
-          // icon={<BurgerIcon />}
+          icon={<BurgerIcon />}
           variant="unstyled"
           marginLeft={"auto"}
         />
@@ -62,11 +43,13 @@ function logout() {
           <MenuItem>
             <Link href="/register">Register</Link>
           </MenuItem>
-            <MenuItem>
-              <Button onChange={logout} variant={"unstyled"}>
+          {user && user["username"] ? (
+              <Button marginLeft={3} onClick={logout} variant={"unstyled"}>
                 Logout
               </Button>
-            </MenuItem>
+            ) : (
+                "")
+            }
           <MenuItem>
             <Link href={"/"}>Home</Link>
           </MenuItem>

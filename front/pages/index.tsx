@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from "react"
+import React, {SyntheticEvent, useEffect} from "react"
 import {
     Box,
     Button,
@@ -13,14 +13,14 @@ import Layout from "../layouts/layout"
 import { useRouter } from "next/router"
 // import nookies from "nookies"
 import { AcsInputPassword, AcsInputText } from "@akkurateio/forms"
-import {setCookies} from "cookies-next";
+import {getCookie, setCookies} from "cookies-next";
 
 
 const Home = () => {
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const [show, setShow] = useState(false)
+    const [user, setUser] = useState<string[]>([])
     const router = useRouter()
 
     const submit = async (e: SyntheticEvent) => {
@@ -36,8 +36,9 @@ const Home = () => {
             })
             const result = await res.json()
             if (result && result["username"]) {
-                 setCookies('token',result['acces_token'] )
-                await router.push("/hello")
+                 setCookies('token',result['access_token'] )
+                setCookies('user',JSON.stringify(result))
+                // await router.push("/profile")
             } else {
                 alert("Error")
             }
@@ -46,13 +47,19 @@ const Home = () => {
         }
     }
 
-    const handleClick = () => {
-        setShow(!show)
+useEffect(() => {
+    const moi = getCookie('user')
+    if (moi) {
+        if (typeof moi === "string") {
+            setUser(JSON.parse(moi))
+        }
     }
+}, [])
+
 
   return (
       <Box>
-           <Layout />
+           <Layout user={user} />
           <Box width={"200px"} marginTop={4}>
              <form onSubmit={submit}>
                 <AcsInputText
@@ -62,13 +69,14 @@ const Home = () => {
                   />
                   <AcsInputPassword
                        handleChange={(value) => setPassword(value)}
-                      value={password}
+                        value={password}
                        label={"Password"}
                    />
                    <Button marginTop={4} type="submit">
                        Login
                    </Button>
                </form>
+              {}
            </Box>
       </Box>
   )
