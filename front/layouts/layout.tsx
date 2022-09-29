@@ -30,7 +30,11 @@ const logout = async () => {
 
   return (
     <Flex display={"flex"} width={"full"} backgroundColor={"blue.500"}>
+        {user && user["username"] ? (
       <Text  >Bonjour {user["firstname"]}</Text>
+        ) : (
+            <Text>Bienvenue dans notre secretSanta veuillez vous connecter</Text>
+        )}
       <Menu>
         <MenuButton
           as={IconButton}
@@ -40,9 +44,11 @@ const logout = async () => {
           marginLeft={"auto"}
         />
         <MenuList>
+            {user && user["username"] ? (
+              "") : (
           <MenuItem>
             <Link href="/register">Register</Link>
-          </MenuItem>
+          </MenuItem> )}
           {user && user["username"] ? (
               <Button marginLeft={3} onClick={logout} variant={"unstyled"}>
                 Logout

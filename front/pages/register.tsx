@@ -1,8 +1,8 @@
 import React, { SyntheticEvent, useState } from "react"
-import { Box, Button, Input, InputGroup, Text } from "@chakra-ui/react"
+import { Box, Button } from "@chakra-ui/react"
 import { useRouter } from "next/router"
-import Layout from "../layouts/layout"
 import { AcsInputPassword, AcsInputText } from "@akkurateio/forms"
+import LayoutRegister from "../layouts/latoutRegister";
 
 const Register = () => {
   const [username, setUsername] = useState("")
@@ -29,9 +29,10 @@ const Register = () => {
     await router.push("/")
   }
 
+  // @ts-ignore
   return (
     <Box>
-      <Layout />
+      <LayoutRegister />
       <h1>Register</h1>
       <Box width={"200px"} marginTop={4}>
         <form onSubmit={submit}>
