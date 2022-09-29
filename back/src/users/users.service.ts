@@ -33,6 +33,7 @@ export class UsersService {
     newUser.lastname = data.lastname;
     newUser.email = data.email;
 
+
     await newUser.save();
 
     return newUser;
