@@ -16,7 +16,7 @@ const auth_module_1 = require("./auth/auth.module");
 const ormconfig_1 = require("../ormconfig");
 const config_1 = require("@nestjs/config");
 const secret_santas_module_1 = require("./secret_santas/secret-santas.module");
-const draws_module_1 = require("./draw/draws.module");
+const draws_module_1 = require("./draws/draws.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([

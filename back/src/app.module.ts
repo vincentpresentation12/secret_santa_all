@@ -7,7 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import config from '../ormconfig';
 import { ConfigModule } from '@nestjs/config';
 import { SecretSantasModule } from './secret_santas/secret-santas.module';
-import { DrawsModule } from './draw/draws.module';
+import { DrawsModule } from './draws/draws.module';
 
 
 @Module({

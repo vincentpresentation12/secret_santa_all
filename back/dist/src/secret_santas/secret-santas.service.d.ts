@@ -1,9 +1,9 @@
 import { SecretSanta } from './secret-santa.entity';
 import { Repository } from 'typeorm';
 import { SecretSantaDto } from './dto/secret-santa.dto';
-import { User } from 'src/users/user.entity';
-import { Draw } from '../draw/draw.entity';
-import { UserDto } from 'src/users/dto/user.dto';
+import { User } from '../users/user.entity';
+import { Draw } from '../draws/draw.entity';
+import { UserDto } from '../users/dto/user.dto';
 import { UsersService } from '../users/users.service';
 export declare class SecretSantasService {
     private secretSantaRepository;

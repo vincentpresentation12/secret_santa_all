@@ -18,7 +18,7 @@ const secret_santa_entity_1 = require("./secret-santa.entity");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const uuid_1 = require("uuid");
-const draw_entity_1 = require("../draw/draw.entity");
+const draw_entity_1 = require("../draws/draw.entity");
 const users_service_1 = require("../users/users.service");
 let SecretSantasService = class SecretSantasService {
     constructor(secretSantaRepository, usersService) {
