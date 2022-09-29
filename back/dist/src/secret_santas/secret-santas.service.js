@@ -31,24 +31,21 @@ let SecretSantasService = class SecretSantasService {
     async createSecretSanta(usersDto) {
         const newSecretSanta = new secret_santa_entity_1.SecretSanta();
         let users = [];
-        usersDto.forEach(async (userDto) => {
+        for (const userDto of usersDto) {
             let user = await this.usersService.findOne(userDto.username);
-            ;
             if (user != null) {
                 users.push(user);
-                console.log(users, "inside");
             }
-        });
-        console.log(users, "outside");
+        }
         newSecretSanta.uuid = (0, uuid_1.v4)();
-        newSecretSanta.draws = this.draw(users);
+        newSecretSanta.draws = await this.draw(users);
         await newSecretSanta.save();
         return newSecretSanta;
     }
-    draw(users) {
+    async draw(users) {
         let draws = [];
-        let giftee = users;
-        users.forEach(async (user) => {
+        let giftee = users.slice();
+        for (const user of users) {
             let randomElement = Math.floor(Math.random() * giftee.length);
             while (giftee[randomElement].uuid == user.uuid) {
                 randomElement = Math.floor(Math.random() * giftee.length);
@@ -58,9 +55,10 @@ let SecretSantasService = class SecretSantasService {
             draw.santa = user.uuid;
             draw.giftee = giftee[randomElement].uuid;
             draws.push(draw);
+            console.log(user.uuid, giftee[randomElement].uuid);
             giftee.splice(randomElement, 1);
             await draw.save();
-        });
+        }
         return draws;
     }
     async updateSecretSanta(uuid, data) {
