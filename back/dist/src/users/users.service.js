@@ -39,7 +39,7 @@ let UsersService = class UsersService {
         newUser.password = hashedPw;
         newUser.firstname = data.firstname;
         newUser.lastname = data.lastname;
-        newUser.email = data.firstname + "." + data.lastname + "@secretsanta.com";
+        newUser.email = data.email;
         await newUser.save();
         return newUser;
     }

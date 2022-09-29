@@ -11,5 +11,8 @@ export class CreateUserInput {
   lastname: string;
 
   @IsString()
+  email: string;
+
+  @IsString()
   password: string;
 }

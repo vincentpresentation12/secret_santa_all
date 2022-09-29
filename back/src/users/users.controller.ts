@@ -31,7 +31,7 @@ export class UsersController {
   }
 
   @Get('/:uuid')
-    @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   findUserByUuid(@Param('uuid') uuid: string) {
     return this.usersService.findUserByUuid(uuid);
   }
