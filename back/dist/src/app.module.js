@@ -16,6 +16,7 @@ const auth_module_1 = require("./auth/auth.module");
 const ormconfig_1 = require("../ormconfig");
 const config_1 = require("@nestjs/config");
 const secret_santas_module_1 = require("./secret_santas/secret-santas.module");
+const draws_module_1 = require("./draws/draws.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -25,7 +26,8 @@ AppModule = __decorate([
             typeorm_1.TypeOrmModule.forRoot(ormconfig_1.default),
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
-            secret_santas_module_1.SecretSantasModule
+            secret_santas_module_1.SecretSantasModule,
+            draws_module_1.DrawsModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

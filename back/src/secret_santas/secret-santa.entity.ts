@@ -1,4 +1,3 @@
-import { Draw } from 'src/draw/draw.entity';
 import {
     BaseEntity,
     Column,
@@ -8,6 +7,7 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
   } from 'typeorm';
+import { Draw } from '../draws/draw.entity';
   
   @Entity()
   export class SecretSanta extends BaseEntity {
@@ -25,6 +25,5 @@ import {
   
     @UpdateDateColumn({ type: 'timestamp', nullable: true })
     updatedAt?: Date;
-    newSecretSanta: Promise<Draw[]>;
   }
   

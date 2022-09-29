@@ -9,29 +9,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SecretSanta = void 0;
+exports.Draw = void 0;
 const typeorm_1 = require("typeorm");
-const draw_entity_1 = require("../draws/draw.entity");
-let SecretSanta = class SecretSanta extends typeorm_1.BaseEntity {
+const secret_santa_entity_1 = require("../secret_santas/secret-santa.entity");
+let Draw = class Draw extends typeorm_1.BaseEntity {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
-], SecretSanta.prototype, "uuid", void 0);
+], Draw.prototype, "uuid", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => draw_entity_1.Draw, (draw) => draw.secretSanta),
-    __metadata("design:type", Array)
-], SecretSanta.prototype, "draws", void 0);
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Draw.prototype, "santa", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Draw.prototype, "giftee", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => secret_santa_entity_1.SecretSanta, (secretSanta) => secretSanta.draws),
+    __metadata("design:type", secret_santa_entity_1.SecretSanta)
+], Draw.prototype, "secretSanta", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamp' }),
     __metadata("design:type", Date)
-], SecretSanta.prototype, "createdAt", void 0);
+], Draw.prototype, "createdAt", void 0);
 __decorate([
     (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp', nullable: true }),
     __metadata("design:type", Date)
-], SecretSanta.prototype, "updatedAt", void 0);
-SecretSanta = __decorate([
+], Draw.prototype, "updatedAt", void 0);
+Draw = __decorate([
     (0, typeorm_1.Entity)()
-], SecretSanta);
-exports.SecretSanta = SecretSanta;
-//# sourceMappingURL=secret-santa.entity.js.map
+], Draw);
+exports.Draw = Draw;
+//# sourceMappingURL=draw.entity.js.map

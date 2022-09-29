@@ -18,18 +18,45 @@ const secret_santa_entity_1 = require("./secret-santa.entity");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const uuid_1 = require("uuid");
+const draw_entity_1 = require("../draws/draw.entity");
+const users_service_1 = require("../users/users.service");
 let SecretSantasService = class SecretSantasService {
-    constructor(secretSantaRepository) {
+    constructor(secretSantaRepository, usersService) {
         this.secretSantaRepository = secretSantaRepository;
+        this.usersService = usersService;
     }
     async findOne(uuid) {
         return await secret_santa_entity_1.SecretSanta.findOne({ where: { uuid } });
     }
-    async createSecretSanta(data) {
+    async createSecretSanta(usersDto) {
         const newSecretSanta = new secret_santa_entity_1.SecretSanta();
+        let users = [];
+        usersDto.forEach(async (userDto) => {
+            let user = await this.usersService.findOne(userDto.username);
+            if (user) {
+                users.push(user);
+            }
+        });
         newSecretSanta.uuid = (0, uuid_1.v4)();
+        newSecretSanta.draws = this.draw(users);
         await newSecretSanta.save();
         return newSecretSanta;
+    }
+    draw(users) {
+        let draws = [];
+        let giftee = users;
+        users.forEach(user => {
+            let randomElement = Math.floor(Math.random() * giftee.length);
+            while (giftee[randomElement].uuid == user.uuid) {
+                randomElement = Math.floor(Math.random() * giftee.length);
+            }
+            let draw = new draw_entity_1.Draw();
+            draw.santa = user.uuid;
+            draw.giftee = giftee[randomElement].uuid;
+            draws.push(draw);
+            giftee.splice(randomElement, 1);
+        });
+        return draws;
     }
     async updateSecretSanta(uuid, data) {
         const secretSanta = await this.findOne(uuid);
@@ -49,7 +76,8 @@ let SecretSantasService = class SecretSantasService {
 SecretSantasService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(secret_santa_entity_1.SecretSanta)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        users_service_1.UsersService])
 ], SecretSantasService);
 exports.SecretSantasService = SecretSantasService;
 //# sourceMappingURL=secret-santas.service.js.map

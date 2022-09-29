@@ -1,7 +1,8 @@
 import { BaseEntity } from 'typeorm';
+import { Draw } from '../draws/draw.entity';
 export declare class SecretSanta extends BaseEntity {
     uuid: string;
-    draw: string[];
+    draws: Draw[];
     createdAt: Date;
     updatedAt?: Date;
 }

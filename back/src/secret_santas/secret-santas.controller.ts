@@ -11,8 +11,7 @@ import {
   import { SecretSantasService } from './secret-santas.service';
   import { SecretSanta } from './secret-santa.entity';
   import { SecretSantaDto } from './dto/secret-santa.dto';
-  import {CurrentUser} from "../common/decorator/current-user.decorator";
-  import { UserDto } from "src/users/dto/user.dto"
+  import { UserDto } from "../users/dto/user.dto"
   import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
   
   @Controller('secret-santas')
