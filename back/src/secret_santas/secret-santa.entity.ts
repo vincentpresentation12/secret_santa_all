@@ -1,4 +1,3 @@
-import { Draw } from 'src/draw/draw.entity';
 import {
     BaseEntity,
     Column,
@@ -8,6 +7,7 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn,
   } from 'typeorm';
+import { Draw } from '../draw/draw.entity';
   
   @Entity()
   export class SecretSanta extends BaseEntity {

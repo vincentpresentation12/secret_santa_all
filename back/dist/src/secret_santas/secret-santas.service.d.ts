@@ -1,11 +1,17 @@
 import { SecretSanta } from './secret-santa.entity';
 import { Repository } from 'typeorm';
 import { SecretSantaDto } from './dto/secret-santa.dto';
+import { User } from 'src/users/user.entity';
+import { Draw } from '../draw/draw.entity';
+import { UserDto } from 'src/users/dto/user.dto';
+import { UsersService } from '../users/users.service';
 export declare class SecretSantasService {
     private secretSantaRepository;
-    constructor(secretSantaRepository: Repository<SecretSanta>);
+    private usersService;
+    constructor(secretSantaRepository: Repository<SecretSanta>, usersService: UsersService);
     findOne(uuid: string): Promise<SecretSanta | null>;
-    createSecretSanta(data: SecretSantaDto): Promise<SecretSanta>;
+    createSecretSanta(usersDto: UserDto[]): Promise<SecretSanta>;
+    draw(users: User[]): Draw[];
     updateSecretSanta(uuid: string, data: SecretSantaDto): Promise<SecretSanta | undefined>;
     deleteSecretSanta(uuid: string): Promise<SecretSanta | undefined>;
 }

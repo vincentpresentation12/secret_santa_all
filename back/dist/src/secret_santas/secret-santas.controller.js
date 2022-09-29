@@ -21,16 +21,16 @@ let SecretSantasController = class SecretSantasController {
     constructor(secretSantasService) {
         this.secretSantasService = secretSantasService;
     }
-    createUser(data) {
+    createSecretSanta(data) {
         return this.secretSantasService.createSecretSanta(data);
     }
-    findUserByUuid(uuid) {
+    findOne(uuid) {
         return this.secretSantasService.findOne(uuid);
     }
-    async updateUser(uuid, data) {
+    async updateSecretSanta(uuid, data) {
         return this.secretSantasService.updateSecretSanta(uuid, data);
     }
-    async deleteUser(uuid) {
+    async deleteSecretSanta(uuid) {
         return this.secretSantasService.deleteSecretSanta(uuid);
     }
 };
@@ -38,9 +38,9 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [secret_santa_dto_1.SecretSantaDto]),
+    __metadata("design:paramtypes", [Array]),
     __metadata("design:returntype", void 0)
-], SecretSantasController.prototype, "createUser", null);
+], SecretSantasController.prototype, "createSecretSanta", null);
 __decorate([
     (0, common_1.Get)('/:uuid'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
@@ -48,7 +48,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], SecretSantasController.prototype, "findUserByUuid", null);
+], SecretSantasController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Put)('/:uuid'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
@@ -57,7 +57,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, secret_santa_dto_1.SecretSantaDto]),
     __metadata("design:returntype", Promise)
-], SecretSantasController.prototype, "updateUser", null);
+], SecretSantasController.prototype, "updateSecretSanta", null);
 __decorate([
     (0, common_1.Delete)('/:uuid'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
@@ -65,7 +65,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], SecretSantasController.prototype, "deleteUser", null);
+], SecretSantasController.prototype, "deleteSecretSanta", null);
 SecretSantasController = __decorate([
     (0, common_1.Controller)('secret-santas'),
     __metadata("design:paramtypes", [secret_santas_service_1.SecretSantasService])

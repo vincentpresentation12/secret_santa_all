@@ -12,11 +12,12 @@ const secret_santas_service_1 = require("./secret-santas.service");
 const secret_santas_controller_1 = require("./secret-santas.controller");
 const typeorm_1 = require("@nestjs/typeorm");
 const secret_santa_entity_1 = require("./secret-santa.entity");
+const users_module_1 = require("../users/users.module");
 let SecretSantasModule = class SecretSantasModule {
 };
 SecretSantasModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([secret_santa_entity_1.SecretSanta])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([secret_santa_entity_1.SecretSanta]), users_module_1.UsersModule],
         controllers: [secret_santas_controller_1.SecretSantasController],
         providers: [secret_santas_service_1.SecretSantasService],
         exports: [secret_santas_service_1.SecretSantasService],
