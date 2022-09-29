@@ -4,6 +4,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { SecretSantaDto } from './dto/secret-santa.dto';
+import { User } from 'src/users/user.entity';
+import { Draw } from 'src/draw/draw.entity';
+import { UserDto } from 'src/users/dto/user.dto';
+import { UsersService } from 'src/users/users.service';
 //import { CreateUserInput } from './dto/create-user.dto';
 //import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -11,6 +15,7 @@ import { SecretSantaDto } from './dto/secret-santa.dto';
 export class SecretSantasService {
   constructor(
     @InjectRepository(SecretSanta) private secretSantaRepository: Repository<SecretSanta>,
+    private usersService: UsersService
   ) {}
 
 
@@ -18,14 +23,40 @@ export class SecretSantasService {
     return await SecretSanta.findOne({ where: { uuid } });
   }
 
-  async createSecretSanta(data: SecretSantaDto) {
+  async createSecretSanta(usersDto: UserDto[]) {
     const newSecretSanta = new SecretSanta();
 
+    let users: User[] = [];
+    usersDto.forEach(async userDto => {
+      let user = await this.usersService.findOne(userDto.username);
+      if(user){
+        users.push(user);
+      }
+    });
+
     newSecretSanta.uuid = uuidv4();
+    newSecretSanta.draws = this.draw(users);
 
     await newSecretSanta.save();
 
     return newSecretSanta;
+  }
+
+  draw(users: User[]){
+    let draws: Draw[] = [];
+    let giftee = users;
+    users.forEach(user => {
+      let randomElement = Math.floor(Math.random() * giftee.length);
+      while(giftee[randomElement].uuid == user.uuid){
+        randomElement = Math.floor(Math.random() * giftee.length);
+      }
+      let draw = new Draw();
+      draw.santa = user.uuid;
+      draw.giftee = giftee[randomElement].uuid;
+      draws.push(draw);
+      giftee.splice(randomElement,1);
+    });
+    return draws;
   }
 
 
