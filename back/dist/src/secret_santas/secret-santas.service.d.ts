@@ -11,7 +11,7 @@ export declare class SecretSantasService {
     constructor(secretSantaRepository: Repository<SecretSanta>, usersService: UsersService);
     findOne(uuid: string): Promise<SecretSanta | null>;
     createSecretSanta(usersDto: UserDto[]): Promise<SecretSanta>;
-    draw(users: User[]): Draw[];
+    draw(users: User[]): Promise<Draw[]>;
     updateSecretSanta(uuid: string, data: SecretSantaDto): Promise<SecretSanta | undefined>;
     deleteSecretSanta(uuid: string): Promise<SecretSanta | undefined>;
 }

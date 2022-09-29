@@ -27,35 +27,38 @@ export class SecretSantasService {
     const newSecretSanta = new SecretSanta();
 
     let users: User[] = [];
-    usersDto.forEach(async userDto => {
+    for (const userDto of usersDto) {
       let user = await this.usersService.findOne(userDto.username);
-      if(user){
+      if(user != null){
         users.push(user);
       }
-    });
+    }
 
     newSecretSanta.uuid = uuidv4();
-    newSecretSanta.draws = this.draw(users);
-
+    newSecretSanta.draws = await this.draw(users);
     await newSecretSanta.save();
 
     return newSecretSanta;
   }
 
-  draw(users: User[]){
+  async draw(users: User[]){
     let draws: Draw[] = [];
-    let giftee = users;
-    users.forEach(user => {
+    let giftee = users.slice();
+    
+    for(const user of users){
       let randomElement = Math.floor(Math.random() * giftee.length);
       while(giftee[randomElement].uuid == user.uuid){
         randomElement = Math.floor(Math.random() * giftee.length);
       }
       let draw = new Draw();
+      draw.uuid = uuidv4();
       draw.santa = user.uuid;
       draw.giftee = giftee[randomElement].uuid;
       draws.push(draw);
+      console.log(user.uuid,giftee[randomElement].uuid);
       giftee.splice(randomElement,1);
-    });
+      await draw.save();
+    }
     return draws;
   }
 
