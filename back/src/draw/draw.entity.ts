@@ -1,30 +1,35 @@
-import { Draw } from 'src/draw/draw.entity';
+import { SecretSanta } from 'src/secret_santas/secret-santa.entity';
 import {
     BaseEntity,
     Column,
     CreateDateColumn,
     Entity,
-    OneToMany,
+    ManyToOne,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
   } from 'typeorm';
   
   @Entity()
-  export class SecretSanta extends BaseEntity {
+  export class Draw extends BaseEntity {
     // @ObjectIdColumn()
     // id: ObjectID;
   
     @PrimaryGeneratedColumn('uuid')
     uuid: string;
-  
-    @OneToMany(() => Draw, (draw) => draw.secretSanta)
-    draws: Draw[];
+
+    @Column()
+    santa: string;
+
+    @Column()
+    giftee: string;
+
+    @ManyToOne(() => SecretSanta, (secretSanta) => secretSanta.draws)
+    secretSanta: SecretSanta;
   
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
   
     @UpdateDateColumn({ type: 'timestamp', nullable: true })
     updatedAt?: Date;
-    newSecretSanta: Promise<Draw[]>;
   }
   

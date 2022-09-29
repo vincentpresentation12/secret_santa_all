@@ -12,6 +12,7 @@ import {
   import { SecretSanta } from './secret-santa.entity';
   import { SecretSantaDto } from './dto/secret-santa.dto';
   import {CurrentUser} from "../common/decorator/current-user.decorator";
+  import { UserDto } from "src/users/dto/user.dto"
   import {JwtAuthGuard} from "../auth/guards/jwt-auth.guard";
   
   @Controller('secret-santas')
@@ -19,20 +20,20 @@ import {
     constructor(private secretSantasService: SecretSantasService) {}
   
     @Post()
-    createUser(@Body() data: SecretSantaDto) {
+    createSecretSanta(@Body() data: UserDto[]) {
       return this.secretSantasService.createSecretSanta(data);
     }
   
     @Get('/:uuid')
       @UseGuards(JwtAuthGuard)
-    findUserByUuid(@Param('uuid') uuid: string) {
+    findOne(@Param('uuid') uuid: string) {
       return this.secretSantasService.findOne(uuid);
     }
   
   
     @Put('/:uuid')
     @UseGuards(JwtAuthGuard)
-    async updateUser(@Param('uuid') uuid: string, @Body() data: SecretSantaDto) {
+    async updateSecretSanta(@Param('uuid') uuid: string, @Body() data: SecretSantaDto) {
       return this.secretSantasService.updateSecretSanta(uuid, data);
     }
   
@@ -46,7 +47,7 @@ import {
   
     @Delete('/:uuid')
     @UseGuards(JwtAuthGuard)
-    async deleteUser(@Param('uuid') uuid: string): Promise<SecretSanta | undefined> {
+    async deleteSecretSanta(@Param('uuid') uuid: string): Promise<SecretSanta | undefined> {
       return this.secretSantasService.deleteSecretSanta(uuid);
     }
   }
