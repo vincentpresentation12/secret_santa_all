@@ -37,6 +37,9 @@ let UsersService = class UsersService {
         newUser.uuid = (0, uuid_1.v4)();
         newUser.username = data.username;
         newUser.password = hashedPw;
+        newUser.firstname = data.firstname;
+        newUser.lastname = data.lastname;
+        newUser.email = data.firstname + "." + data.lastname + "@secretsanta.com";
         await newUser.save();
         return newUser;
     }
