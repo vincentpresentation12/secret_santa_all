@@ -29,6 +29,9 @@ export class UsersService {
     newUser.uuid = uuidv4();
     newUser.username = data.username;
     newUser.password = hashedPw;
+    newUser.firstname = data.firstname;
+    newUser.lastname = data.lastname;
+    newUser.email = data.email;
 
     await newUser.save();
 
