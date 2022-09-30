@@ -3,6 +3,7 @@ import { Box, Button } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { AcsInputPassword, AcsInputText } from "@akkurateio/forms"
 import LayoutRegister from "../layouts/latoutRegister";
+import {lien} from "../utils/lien";
 
 const Register = () => {
   const [username, setUsername] = useState("")
@@ -14,7 +15,7 @@ const Register = () => {
 
   const submit = async (e: SyntheticEvent) => {
     e.preventDefault()
-    await fetch("http://localhost:3000/auth/register", {
+    await fetch(`${lien}auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

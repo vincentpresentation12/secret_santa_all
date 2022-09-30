@@ -13,6 +13,7 @@ import Layout from "../layouts/layout"
 import { useRouter } from "next/router"
 import { AcsInputPassword, AcsInputText } from "@akkurateio/forms"
 import {getCookie, setCookies} from "cookies-next";
+import {lien} from "../utils/lien";
 
 
 const Home = () => {
@@ -28,7 +29,7 @@ const Home = () => {
         const body = { username, password}
 
         try {
-            const res = await fetch("http://localhost:3000/auth/login", {
+            const res = await fetch(`${lien}login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),

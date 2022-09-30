@@ -2,6 +2,8 @@ import React, {useEffect} from 'react';
 import {getCookie} from "cookies-next";
 import {Box, Button, Checkbox, CheckboxGroup} from "@chakra-ui/react";
 import { transpile } from 'typescript';
+import Layout from "../layouts/layout";
+import {lien} from "../utils/lien";
 
 
 
@@ -16,7 +18,7 @@ const Tirage = () => {
 
 
     useEffect(() => {
-        fetch("http://localhost:3000/users", {
+        fetch(`${lien}users`, {
             method: "GET",
             headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
         }).then(res => res.json()).then(res => {
@@ -25,15 +27,7 @@ const Tirage = () => {
     }
         , [])
 
-    //
-    // const addUsers = (username: string) => {
-    //     const user = users.find(user => user.username === username)
-    //     if (user) {
-    //         sendUsers.push(user)
-    //         setSendUsers(sendUsers)
-    //         console.log(sendUsers)
-    //     }
-    // }
+
     //add users to sendUsers array if user already exist in sendUsers array remove it
     const addUsers = (username: string) => {
         const user = users.find(user => user.username === username)
@@ -42,11 +36,9 @@ const Tirage = () => {
             if (index === -1) {
                 sendUsers.push(user)
                 setSendUsers(sendUsers)
-                console.log(sendUsers)
             } else {
                 sendUsers.splice(index, 1)
                 setSendUsers(sendUsers)
-                console.log(sendUsers)
             }
         }
     }
