@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react';
 import {getCookie} from "cookies-next";
 import {Box, Button, Checkbox, CheckboxGroup} from "@chakra-ui/react";
-import { transpile } from 'typescript';
-import Layout from "../layouts/layout";
 import {lien} from "../utils/lien";
+import Layout from "../layouts/layout";
 
 
 
@@ -46,7 +45,7 @@ const Tirage = () => {
 
     const santa = (users: any[]) => {
         if (users.length > 2) {
-        fetch("http://localhost:3000/secret-santas", {
+        fetch(`${lien}secret-santas`, {
             method: "POST",
             headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
             body: JSON.stringify(users)
@@ -62,6 +61,7 @@ const Tirage = () => {
 
     return (
 <Box>
+    <Layout/>
     <h1>Tirage</h1>
     <ul>
         {users.map((user,index) => (

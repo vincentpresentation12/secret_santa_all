@@ -59,7 +59,7 @@ useEffect(() => {
 
   return (
       <Box>
-           <Layout user={user} />
+           <Layout/>
           <Box width={"200px"} marginTop={4}>
              <form onSubmit={submit}>
                 <AcsInputText
