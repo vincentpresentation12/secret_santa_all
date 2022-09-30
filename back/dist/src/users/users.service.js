@@ -23,10 +23,8 @@ let UsersService = class UsersService {
     constructor(userRepository) {
         this.userRepository = userRepository;
     }
-    async findAllUsers(currentUser) {
-        const users = await user_entity_1.User.find();
-        const filtered = users.filter((user) => user.uuid !== currentUser.uuid);
-        return filtered;
+    async findAll() {
+        return await this.userRepository.find();
     }
     async findOne(username) {
         return await user_entity_1.User.findOne({ where: { username } });

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {getCookie} from "cookies-next";
-import {Box, Button} from "@chakra-ui/react";
+import {Box, Button, Checkbox, CheckboxGroup} from "@chakra-ui/react";
 import { transpile } from 'typescript';
 
 
@@ -9,9 +9,12 @@ const Tirage = () => {
 
     const [users, setUsers] = React.useState<any[]>([])
     const [sendUsers, setSendUsers] = React.useState<any[]>([])
+
+
+
     const token = getCookie('token')
 
-    // fetach users
+
     useEffect(() => {
         fetch("http://localhost:3000/users", {
             method: "GET",
@@ -22,29 +25,35 @@ const Tirage = () => {
     }
         , [])
 
-    const sendUser = {
-
-    }
-
-    // addUser to send list
-    // const addUser = (user: any) => {
-    //     sendUsers.push(user)
-    //     setSendUsers(sendUsers)
-    //     console.log(sendUsers)
+    //
+    // const addUsers = (username: string) => {
+    //     const user = users.find(user => user.username === username)
+    //     if (user) {
+    //         sendUsers.push(user)
+    //         setSendUsers(sendUsers)
+    //         console.log(sendUsers)
+    //     }
     // }
-    // addUsers by username to send list one by one
-   //give the name on click
+    //add users to sendUsers array if user already exist in sendUsers array remove it
     const addUsers = (username: string) => {
         const user = users.find(user => user.username === username)
         if (user) {
-            sendUsers.push(user)
-            setSendUsers(sendUsers)
-            console.log(sendUsers)
+            const index = sendUsers.findIndex(user => user.username === username)
+            if (index === -1) {
+                sendUsers.push(user)
+                setSendUsers(sendUsers)
+                console.log(sendUsers)
+            } else {
+                sendUsers.splice(index, 1)
+                setSendUsers(sendUsers)
+                console.log(sendUsers)
+            }
         }
     }
-    console.log(sendUsers)
+
 
     const santa = (users: any[]) => {
+        if (users.length > 2) {
         fetch("http://localhost:3000/secret-santas", {
             method: "POST",
             headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
@@ -53,20 +62,23 @@ const Tirage = () => {
             console.log(res)
         }
         )
+        } else {
+            alert("il faut au moins 3 participants")
+        }
     }
 
 
-    console.log(users)
     return (
 <Box>
     <h1>Tirage</h1>
     <ul>
         {users.map((user,index) => (
-            <li key={index}>{user.username}<Button onClick={() => addUsers(user.username)}>ajouter</Button></li>
+            <li key={index}>{user.username}
+                <Checkbox onChange={() => addUsers(user.username)}></Checkbox>
+            </li>
         ))}
+        <Button onClick={() => santa(sendUsers)}>Envoyer</Button>
     </ul>
-    <Button onClick={() => santa(users)}>send</Button>
-
 </Box>
     );
 };

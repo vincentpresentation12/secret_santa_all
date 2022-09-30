@@ -26,8 +26,8 @@ export class UsersController {
 
   @Get()
   @UseGuards(JwtAuthGuard)
-  findAllUsers(@CurrentUser() currentUser: User) {
-    return this.usersService.findAllUsers(currentUser);
+    getAllUsers(@CurrentUser() user: User) {
+    return this.usersService.findAll();
   }
 
   @Get('/:uuid')

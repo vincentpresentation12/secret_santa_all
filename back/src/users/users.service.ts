@@ -13,11 +13,10 @@ export class UsersService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  async findAllUsers(currentUser: User) {
-    const users = await User.find();
-    const filtered = users.filter((user) => user.uuid !== currentUser.uuid);
-    return filtered;
+    async findAll() {
+    return await this.userRepository.find();
   }
+
   async findOne(username: string) {
     return await User.findOne({ where: { username } });
   }

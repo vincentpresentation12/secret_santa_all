@@ -27,8 +27,8 @@ let UsersController = class UsersController {
     createUser(data) {
         return this.usersService.createUser(data);
     }
-    findAllUsers(currentUser) {
-        return this.usersService.findAllUsers(currentUser);
+    getAllUsers(user) {
+        return this.usersService.findAll();
     }
     findUserByUuid(uuid) {
         return this.usersService.findUserByUuid(uuid);
@@ -54,7 +54,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [user_entity_1.User]),
     __metadata("design:returntype", void 0)
-], UsersController.prototype, "findAllUsers", null);
+], UsersController.prototype, "getAllUsers", null);
 __decorate([
     (0, common_1.Get)('/:uuid'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
