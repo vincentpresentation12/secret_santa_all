@@ -16,7 +16,7 @@ import {deleteCookie, getCookie} from "cookies-next";
 import BurgerIcon from "../images/burger";
 
 
-const Layout:React.FC<Iprops> = () => {
+const Layout:React.FC = () => {
   const [user, setUser] = useState<string[]>([])
   const router = useRouter()
 
