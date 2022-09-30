@@ -14,11 +14,14 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import {deleteCookie, getCookie} from "cookies-next";
 import BurgerIcon from "../images/burger";
+import {lien} from "../utils/lien";
 
 
 const Layout:React.FC = () => {
   const [user, setUser] = useState<string[]>([])
+
   const router = useRouter()
+
 
   useEffect(() => {
     const moi = getCookie('user')
@@ -35,16 +38,12 @@ const logout = async () => {
     await router.push("/register")
 }
 
-  console.log(user)
+
 
 
   return (
+
     <Flex display={"flex"} width={"full"} backgroundColor={"blue.500"}>
-        {user && user["username"] ? (
-      <Text  >Bonjour {user["username"]}</Text>
-        ) : (
-            <Text>Bienvenue dans notre secretSanta veuillez vous connecter</Text>
-        )}
       <Menu>
         <MenuButton
           as={IconButton}
@@ -54,11 +53,13 @@ const logout = async () => {
           marginLeft={"auto"}
         />
         <MenuList>
-            {user && user["username"] ? (
+          {/* @ts-ignore */}
+            {user["username"] && user ? (
               "") : (
           <MenuItem>
             <Link href="/register">Register</Link>
           </MenuItem> )}
+          {/* @ts-ignore */}
           {user && user["username"] ? (
               <Button marginLeft={3} onClick={logout} variant={"unstyled"}>
                 Logout
@@ -66,6 +67,7 @@ const logout = async () => {
             ) : (
                 "")
             }
+          {/* @ts-ignore */}
           {user && user["username"] ? (
                   <MenuItem>
                     <Link href="/tirage">Tirage</Link>
